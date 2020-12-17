@@ -1,105 +1,105 @@
-#ifndef __TEST__HPP__
+ï»¿#ifndef __TEST__HPP__
 #define __TEST__HPP__
 
 /*!
- * \brief Êä³ö¸ñÊ½»¯Ïà¹ØµÄºê¶¨Òå
+ * \brief è¾“å‡ºæ ¼å¼åŒ–ç›¸å…³çš„å®å®šä¹‰
  *
  * \author ares
- * \date Ê®¶şÔÂ 2020
+ * \date åäºŒæœˆ 2020
  * 
  */ 
-#define STD_OUT cout<<setw(80)
+#define STD_OUT cout<<setw(90)
 #define OBJECT_TOS(class_name, val) setw(50)<<#class_name"::"#val
 typedef void(*virtual_func)();
 
 #define GET_VIRTUAL_TABLE(instance) (void**)(int*)*(int**)(&instance)
-#define COUT_VPTR(class_name, instance) STD_OUT<<"¶ÔÏó"#class_name"µÄĞéº¯Êı±íµØÖ·:"<<setw(50)<<#class_name"::vptr"<<(int*)(&instance)<<endl;
-#define COUT_VIRTUAL_FUNC_ADDR(class_name, i, func) cout<<"¶ÔÏó"#class_name"µÄµÚ"<<i<<"¸öĞéº¯ÊıµØÖ·:\t\t"<<func<<endl;
+#define COUT_VPTR(class_name, i, addr) cout<<"å¯¹è±¡"#class_name"çš„ç¬¬"<<i<<"ä¸ªè™šå‡½æ•°è¡¨åœ°å€:\t"<<setw(50)<<#class_name"::vptr"<<addr<<endl;
+#define COUT_VIRTUAL_FUNC_ADDR(class_name, i, func) cout<<"å¯¹è±¡"#class_name"çš„ç¬¬"<<i<<"ä¸ªè™šå‡½æ•°åœ°å€:\t\t"<<(void*)func<<endl;
 
-#define COUT_SIZE(class_name, instance) STD_OUT<<"¶ÔÏó"#class_name"µÄÊµÀı"#instance"µÄ´óĞ¡Îª:"<<sizeof(instance)<<endl;
-#define COUT_ADDR(class_name, instance) STD_OUT<<"¶ÔÏó"#class_name"µÄÊµÀı"#instance"µÄµØÖ·:"<<&instance<<endl;
-#define COUT_VAL_ADDR(class_name, instance, val) STD_OUT<<"¶ÔÏó"#class_name"µÄÊµÀı"#instance"µÄ³ÉÔ±±äÁ¿"#val"µÄµØÖ·:"<<OBJECT_TOS(class_name, val)<<(void*)&(instance.val)<<endl;
-#define COUT_STATIC_VAL_ADDR(class_name, val) STD_OUT<<"¶ÔÏó"#class_name"µÄ¾²Ì¬³ÉÔ±±äÁ¿"#val"µÄµØÖ·:"<<OBJECT_TOS(class_name, val)<<&(class_name::val)<<endl;
-#define COUT_FUNC_ADDR(class_name, func) STD_OUT<<"¶ÔÏó"#class_name"µÄ³ÉÔ±º¯Êı"#func"µÄµØÖ·:"<<OBJECT_TOS(class_name, func)<<&(class_name::func)<<endl;
-#define COUT_STATIC_FUNC_ADDR(class_name, func) STD_OUT<<"¶ÔÏó"#class_name"µÄ³ÉÔ±º¯Êı"#func"µØÖ·:"<<OBJECT_TOS(class_name, func)<<&(class_name::func)<<endl;
+#define COUT_SIZE(class_name, instance) STD_OUT<<"å¯¹è±¡"#class_name"çš„å®ä¾‹"#instance"çš„å¤§å°ä¸º:"<<sizeof(instance)<<endl;
+#define COUT_ADDR(class_name, instance) STD_OUT<<"å¯¹è±¡"#class_name"çš„å®ä¾‹"#instance"çš„åœ°å€:"<<&instance<<endl;
+#define COUT_VAL_ADDR(class_name, instance, val) STD_OUT<<"å¯¹è±¡"#class_name"çš„å®ä¾‹"#instance"çš„æˆå‘˜å˜é‡"#val"çš„åœ°å€:"<<OBJECT_TOS(class_name, val)<<(void*)&(instance.val)<<endl;
+#define COUT_STATIC_VAL_ADDR(class_name, val) STD_OUT<<"å¯¹è±¡"#class_name"çš„é™æ€æˆå‘˜å˜é‡"#val"çš„åœ°å€:"<<OBJECT_TOS(class_name, val)<<&(class_name::val)<<endl;
+#define COUT_FUNC_ADDR(class_name, func) STD_OUT<<"å¯¹è±¡"#class_name"çš„æˆå‘˜å‡½æ•°"#func"çš„åœ°å€:"<<OBJECT_TOS(class_name, func)<<&(class_name::func)<<endl;
+#define COUT_STATIC_FUNC_ADDR(class_name, func) STD_OUT<<"å¯¹è±¡"#class_name"çš„æˆå‘˜å‡½æ•°"#func"åœ°å€:"<<OBJECT_TOS(class_name, func)<<&(class_name::func)<<endl;
 /*!
- * \brief ²âÊÔ¼òµ¥Àà±ğµÄÄÚ´æÄ£ĞÍ
+ * \brief æµ‹è¯•ç®€å•ç±»åˆ«çš„å†…å­˜æ¨¡å‹
  *
  * \author ares
- * \date Ê®¶şÔÂ 2020
+ * \date åäºŒæœˆ 2020
  * 
  */ 
 void test_simple_object();
 
 /*!
- * \brief ²âÊÔ¼òµ¥°üº¬Ğéº¯ÊıµÄ¶ÔÏóµÄÄÚ´æÄ£ĞÍ
+ * \brief æµ‹è¯•ç®€å•åŒ…å«è™šå‡½æ•°çš„å¯¹è±¡çš„å†…å­˜æ¨¡å‹
  *
  * \author ares
- * \date Ê®¶şÔÂ 2020
+ * \date åäºŒæœˆ 2020
  * 
  */ 
 void test_simple_virtual_object();
 
 /*!
- * \brief µ¥¼Ì³ĞÄÚ´æÄ£ĞÍ²âÊÔ
+ * \brief å•ç»§æ‰¿å†…å­˜æ¨¡å‹æµ‹è¯•
  *
  * \author ares
- * \date Ê®¶şÔÂ 2020
+ * \date åäºŒæœˆ 2020
  * 
  */ 
 void test_single_dervied();
 
 /*!
- * \brief µ¥¼Ì³ĞÖĞ´æÔÚĞéº¯ÊıÄÚ´æÄ£ĞÍ²âÊÔ
+ * \brief å•ç»§æ‰¿ä¸­å­˜åœ¨è™šå‡½æ•°å†…å­˜æ¨¡å‹æµ‹è¯•
  *
  * \author ares
- * \date Ê®¶şÔÂ 2020
+ * \date åäºŒæœˆ 2020
  * 
  */ 
 void test_single_virtual_dervied();
 
 /*!
-* \brief ¶à¼Ì³Ğ²»´æÔÚĞéº¯ÊıµÄÄÚ´æ½á¹¹
+* \brief å¤šç»§æ‰¿ä¸å­˜åœ¨è™šå‡½æ•°çš„å†…å­˜ç»“æ„
 *
 * \author ares
-* \date Ê®¶şÔÂ 2020
+* \date åäºŒæœˆ 2020
 *
 */
 void test_mdervied();
 
 /*!
-* \brief ¶à¼Ì³Ğ´æÔÚĞéº¯ÊıµÄÄÚ´æ½á¹¹
+* \brief å¤šç»§æ‰¿å­˜åœ¨è™šå‡½æ•°çš„å†…å­˜ç»“æ„
 *
 * \author ares
-* \date Ê®¶şÔÂ 2020
+* \date åäºŒæœˆ 2020
 *
 */
 void test_virtual_mdervied();
 
 /*!
-* \brief ÎŞĞéº¯ÊıµÄÁâĞÎ¼Ì³Ğ
+* \brief æ— è™šå‡½æ•°çš„è±å½¢ç»§æ‰¿
 *
 * \author ares
-* \date Ê®¶şÔÂ 2020
+* \date åäºŒæœˆ 2020
 *
 */
 void test_dimond_inherit();
 
 
 /*!
-* \brief °üº¬Ğéº¯ÊıµÄÁâĞÎ¼Ì³Ğ
+* \brief åŒ…å«è™šå‡½æ•°çš„è±å½¢ç»§æ‰¿
 *
 * \author ares
-* \date Ê®¶şÔÂ 2020
+* \date åäºŒæœˆ 2020
 *
 */
 void test_vdimond_inherit();
 
 /*!
-* \brief °üº¬Ğéº¯ÊıµÄÁâĞÎĞé¼Ì³Ğ
+* \brief åŒ…å«è™šå‡½æ•°çš„è±å½¢è™šç»§æ‰¿
 *
 * \author ares
-* \date Ê®¶şÔÂ 2020
+* \date åäºŒæœˆ 2020
 *
 */
 void test_vdimond_vinherit();

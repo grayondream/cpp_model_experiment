@@ -1,4 +1,4 @@
-#include "test.hpp"
+ï»¿#include "test.hpp"
 #include "base.hpp"
 #include "virtual_base.hpp"
 #include "inherit.hpp"
@@ -12,52 +12,64 @@
 #include <iomanip>
 using namespace std;
 
+/**
+ *  éœ€è¦æ³¨æ„çš„æ˜¯ï¼Œä»£ç ä¸­åŒ…å«è™šå‡½æ•°æ¢æµ‹çš„ä»£ç éœ€è¦æ ¹æ®å…·ä½“çš„ä»£ç ä¿®æ”¹offsetï¼ŒåŒæ—¶ä¿®æ”¹è™šå‡½æ•°çš„ä¸ªæ•°
+ */
+
+/**
+ * æ™®é€šç±»ï¼šåˆ†ä¸ºåŒ…å«è™šå‡½æ•°å’Œä¸åŒ…å«è™šå‡½æ•°
+ */
+
 void test_simple_object()
 {
 	base b;
-	cout << "¿ªÊ¼¼òµ¥Àà±ğÄÚ´æÄ£ĞÍ²âÊÔ!" << endl;
+	cout << "å¼€å§‹ç®€å•ç±»åˆ«å†…å­˜æ¨¡å‹æµ‹è¯•!" << endl;
 	cout.setf(ios::left);
 	COUT_SIZE(base, b);
 	COUT_ADDR(base, b);
 	COUT_VAL_ADDR(base, b, _nonstatic_x);
 	COUT_VAL_ADDR(base, b, _nonstatic_ch);
 	COUT_STATIC_VAL_ADDR(base, _static_x);
-	COUT_STATIC_FUNC_ADDR(base, static_func);
-	COUT_FUNC_ADDR(base, nonstatic_func);
+	//COUT_STATIC_FUNC_ADDR(base, static_func);
+	//COUT_FUNC_ADDR(base, nonstatic_func);
 
-	cout << "¼òµ¥Àà±ğÄÚ´æÄ£ĞÍ²âÊÔ½áÊø!" << endl;
+	cout << "ç®€å•ç±»åˆ«å†…å­˜æ¨¡å‹æµ‹è¯•ç»“æŸ!" << endl;
 }
 
 void test_simple_virtual_object()
 {
 	virtual_base b;
 
-	cout << "¿ªÊ¼¼òµ¥°üº¬Ğéº¯ÊıµÄÀàµÄÄÚ´æÄ£ĞÍ²âÊÔ!" << endl;
+	cout << "å¼€å§‹ç®€å•åŒ…å«è™šå‡½æ•°çš„ç±»çš„å†…å­˜æ¨¡å‹æµ‹è¯•!" << endl;
 	cout.setf(ios::left);
 	COUT_SIZE(virtual_base, b);
 	COUT_ADDR(virtual_base, b);
 	COUT_VAL_ADDR(virtual_base, b, _nonstatic_x);
 	COUT_VAL_ADDR(virtual_base, b, _nonstatic_ch);
-	COUT_VPTR(virtual_base, b);
 	//(void**)(int*)*(int**)
+	COUT_VPTR(virtual_base, 1, &b);
 	void **vptr = GET_VIRTUAL_TABLE(b);
 	int vir_cnt = 4;
 	for (int i = 0; i < vir_cnt; i++)
 	{
-		cout << "µÚ" << i << "¸öĞéº¯ÊıÖ´ĞĞ½á¹û:\t\t\t\t";
+		cout << "ç¬¬" << i << "ä¸ªè™šå‡½æ•°æ‰§è¡Œç»“æœ:\t\t\t\t";
 		virtual_func func = (virtual_func)vptr[i];
 		func();
-		COUT_VIRTUAL_FUNC_ADDR(virtual_base, i, func);
+		COUT_VIRTUAL_FUNC_ADDR(virtual_base, i, (void*)func);
 	}
 	
-	cout << "¿ªÊ¼¼òµ¥°üº¬Ğéº¯ÊıµÄÀàµÄÄÚ´æÄ£ĞÍ²âÊÔ½áÊø!" << endl;
+	cout << "å¼€å§‹ç®€å•åŒ…å«è™šå‡½æ•°çš„ç±»çš„å†…å­˜æ¨¡å‹æµ‹è¯•ç»“æŸ!" << endl;
 }
+
+/**
+ * å•ç»§æ‰¿ï¼šåˆ†ä¸ºåŒ…å«è™šå‡½æ•°å’Œä¸åŒ…å«è™šå‡½æ•°
+ */
 
 void test_single_dervied()
 {
 	inherit b;
 
-	cout << "¿ªÊ¼µ¥¼Ì³Ğ¼òµ¥ÀàµÄÄÚ´æÄ£ĞÍ²âÊÔ!" << endl;
+	cout << "å¼€å§‹å•ç»§æ‰¿ç®€å•ç±»çš„å†…å­˜æ¨¡å‹æµ‹è¯•!" << endl;
 	cout.setf(ios::left);
 	COUT_SIZE(inherit, b);
 	COUT_ADDR(inherit, b);
@@ -65,12 +77,12 @@ void test_single_dervied()
 	COUT_VAL_ADDR(inherit, b, base::_nonstatic_ch);
 	COUT_VAL_ADDR(inherit, b, _inherit_ch);
 
-	cout << "¿ªÊ¼µ¥¼Ì³Ğ¼òµ¥ÀàµÄÄÚ´æÄ£ĞÍ²âÊÔ½áÊø!" << endl;
+	cout << "å¼€å§‹å•ç»§æ‰¿ç®€å•ç±»çš„å†…å­˜æ¨¡å‹æµ‹è¯•ç»“æŸ!" << endl;
 }
 
 void test_single_virtual_dervied()
 {
-	cout << "¿ªÊ¼µ¥¼Ì³Ğ°üº¬Ğéº¯ÊıÀàµÄÄÚ´æÄ£ĞÍ²âÊÔ!" << endl;
+	cout << "å¼€å§‹å•ç»§æ‰¿åŒ…å«è™šå‡½æ•°ç±»çš„å†…å­˜æ¨¡å‹æµ‹è¯•!" << endl;
 
 	virtual_inherit b;
 	cout.setf(ios::left);
@@ -80,22 +92,28 @@ void test_single_virtual_dervied()
 	COUT_VAL_ADDR(virtual_inherit, b, virtual_base::_nonstatic_ch);
 	COUT_VAL_ADDR(virtual_inherit, b, _virtual_inherit_ch);
 
-	COUT_VPTR(virtual_inherit, b);
+	COUT_VPTR(virtual_inherit, 1, &b);
 	void **vptr = GET_VIRTUAL_TABLE(b);
 	int vir_cnt = 5;
 	for (int i = 0; i < vir_cnt; i++)
 	{
-		cout << "µÚ" << i << "¸öĞéº¯ÊıÖ´ĞĞ½á¹û:\t\t\t\t";
+		cout << "ç¬¬" << i << "ä¸ªè™šå‡½æ•°æ‰§è¡Œç»“æœ:\t\t\t\t";
 		virtual_func func = (virtual_func)vptr[i];
 		func();
-		COUT_VIRTUAL_FUNC_ADDR(virtual_base, i, func);
+		COUT_VIRTUAL_FUNC_ADDR(virtual_base, i, (void*)func);
 	}
-	cout << "µ¥¼Ì³Ğ°üº¬Ğéº¯ÊıÀàµÄÄÚ´æÄ£ĞÍ²âÊÔ½áÊø!" << endl;
+
+	cout << "å•ç»§æ‰¿åŒ…å«è™šå‡½æ•°ç±»çš„å†…å­˜æ¨¡å‹æµ‹è¯•ç»“æŸ!" << endl;
 }
+
+
+/**
+ * å¤šç»§æ‰¿ï¼šåˆ†ä¸ºåŒ…å«è™šå‡½æ•°å’Œä¸åŒ…å«è™šå‡½æ•°
+ */
 
 void test_mdervied()
 {
-	cout << "¿ªÊ¼¶à¼Ì³Ğ²»°üº¬Ğéº¯ÊıÀàµÄÄÚ´æÄ£ĞÍ²âÊÔ!" << endl;
+	cout << "å¼€å§‹å¤šç»§æ‰¿ä¸åŒ…å«è™šå‡½æ•°ç±»çš„å†…å­˜æ¨¡å‹æµ‹è¯•!" << endl;
 
 	minherit b;
 	cout.setf(ios::left);
@@ -108,12 +126,12 @@ void test_mdervied()
 	COUT_VAL_ADDR(minherit, b, _minherit_ch);
 
 	
-	cout << "¶à¼Ì³Ğ²»°üº¬Ğéº¯ÊıÀàµÄÄÚ´æÄ£ĞÍ²âÊÔ½áÊø!" << endl;
+	cout << "å¤šç»§æ‰¿ä¸åŒ…å«è™šå‡½æ•°ç±»çš„å†…å­˜æ¨¡å‹æµ‹è¯•ç»“æŸ!" << endl;
 }
 
 void test_virtual_mdervied()
 {
-	cout << "¿ªÊ¼¶à¼Ì³Ğ²»°üº¬Ğéº¯ÊıÀàµÄÄÚ´æÄ£ĞÍ²âÊÔ!" << endl;
+	cout << "å¼€å§‹å¤šç»§æ‰¿åŒ…å«è™šå‡½æ•°ç±»çš„å†…å­˜æ¨¡å‹æµ‹è¯•!" << endl;
 
 	vminherit b;
 	cout.setf(ios::left);
@@ -125,153 +143,173 @@ void test_virtual_mdervied()
 	COUT_VAL_ADDR(vminherit, b, vbase_right::_base_right_ch);
 	COUT_VAL_ADDR(vminherit, b, _minherit_ch);
 	
-	cout << "\nµÚÒ»¸öĞéº¯Êı±í:" << endl;
-	COUT_VPTR(virtual_inherit, b);
+	cout << "\nç¬¬ä¸€ä¸ªè™šå‡½æ•°è¡¨:" << endl;
+	COUT_VPTR(vminherit, 1, &b);
 	void **vptr = GET_VIRTUAL_TABLE(b);
-	int vir_cnt = 3;
+	int vir_cnt = 4;
 	for (int i = 0; i < vir_cnt; i++)
 	{
-		cout << "µÚ" << i << "¸öĞéº¯ÊıÖ´ĞĞ½á¹û:\t\t\t\t";
+		cout << "ç¬¬" << i << "ä¸ªè™šå‡½æ•°æ‰§è¡Œç»“æœ:\t\t\t\t";
 		virtual_func func = (virtual_func)vptr[i];
 		func();
 		COUT_VIRTUAL_FUNC_ADDR(vminherit, i, func);
 	}
 
 
-	cout << "\nµÚ¶ş¸öĞéº¯Êı±í:" << endl;
+	cout << "\nç¬¬äºŒä¸ªè™šå‡½æ•°è¡¨:" << endl;
+	
 	long long offset = 16;
-	int* vptr_snd_ab = (int*)((long long)(&b) + offset);		//µÚ¶ş¸öĞéº¯Êı±íµÄ¾ø¶ÔµØÖ·
+	int* vptr_snd_ab = (int*)((long long)(&b) + offset);		//ç¬¬äºŒä¸ªè™šå‡½æ•°è¡¨çš„ç»å¯¹åœ°å€
+	COUT_VPTR(vminherit, 2, vptr_snd_ab);
 	void **vptr_snd = GET_VIRTUAL_TABLE(*vptr_snd_ab);
-	cout << "¶ÔÏóvminheritµÄĞéº¯Êı±íµØÖ·:" << setw(50) << "vminherit::vptr" << vptr_snd_ab << endl;
 	vir_cnt = 2;
 	for (int i = 0; i < vir_cnt; i++)
 	{
-		cout << "µÚ" << i << "¸öĞéº¯ÊıÖ´ĞĞ½á¹û:\t\t\t\t";
+		cout << "ç¬¬" << i << "ä¸ªè™šå‡½æ•°æ‰§è¡Œç»“æœ:\t\t\t\t";
 		virtual_func func = (virtual_func)vptr_snd[i];
 		func();
 		COUT_VIRTUAL_FUNC_ADDR(vminherit, i, func);
 	}
 
-	cout << "¶à¼Ì³Ğ²»°üº¬Ğéº¯ÊıÀàµÄÄÚ´æÄ£ĞÍ²âÊÔ½áÊø!" << endl;
+	cout << "å¤šç»§æ‰¿åŒ…å«è™šå‡½æ•°ç±»çš„å†…å­˜æ¨¡å‹æµ‹è¯•ç»“æŸ!" << endl;
 }
 
+/**
+ * è±å½¢ç»§æ‰¿ï¼šåˆ†ä¸ºåŒ…å«è™šå‡½æ•°å’Œä¸åŒ…å«è™šå‡½æ•°
+ * è±å½¢ç»§æ‰¿æµ‹è¯•ä¸­ï¼Œæ˜¯å¦ä½¿ç”¨è™šç»§æ‰¿ç›´æ¥ä¿®æ”¹ä»£ç ï¼Œè€Œä¸ä¼šå»ºç«‹ç‰¹å®šçš„æµ‹è¯•ç±»
+ */
 void test_dimond_inherit()
 {
-	cout << "¿ªÊ¼²»°üº¬Ğéº¯ÊıµÄÁâĞÎ¼Ì³ĞÀàµÄÄÚ´æÄ£ĞÍ²âÊÔ!" << endl;
+	cout << "å¼€å§‹ä¸åŒ…å«è™šå‡½æ•°çš„è±å½¢ç»§æ‰¿ç±»çš„å†…å­˜æ¨¡å‹æµ‹è¯•!" << endl;
 
 	child b;
 	cout.setf(ios::left);
 	COUT_SIZE(child, b);
 	COUT_ADDR(child, b);
-	COUT_VAL_ADDR(child, b, father::grand::_grand_x);
-	COUT_VAL_ADDR(child, b, father::grand::_grand_ch);
+	COUT_VAL_ADDR(child, b, father::_grand_x);
+	COUT_VAL_ADDR(child, b, father::_grand_ch);
 	COUT_VAL_ADDR(child, b, father::_father_ch);
 
-	COUT_VAL_ADDR(child, b, mother::grand::_grand_x);
-	COUT_VAL_ADDR(child, b, mother::grand::_grand_ch);
+	COUT_VAL_ADDR(child, b, mother::_grand_x);
+	COUT_VAL_ADDR(child, b, mother::_grand_ch);
 	COUT_VAL_ADDR(child, b, mother::_mother_ch);
 
 	COUT_VAL_ADDR(child, b, _child_ch);
 
-	cout << "²»°üº¬Ğéº¯ÊıµÄÁâĞÎ¼Ì³ĞÀàµÄÄÚ´æÄ£ĞÍ²âÊÔ½áÊø!" << endl;
+	cout << "ä¸åŒ…å«è™šå‡½æ•°çš„è±å½¢ç»§æ‰¿ç±»çš„å†…å­˜æ¨¡å‹æµ‹è¯•ç»“æŸ!" << endl;
 	
 }
 
 
 void test_vdimond_inherit()
 {
-	cout << "¿ªÊ¼°üº¬Ğéº¯ÊıµÄÁâĞÎ¼Ì³ĞÀàµÄÄÚ´æÄ£ĞÍ²âÊÔ!" << endl;
+	cout << "å¼€å§‹åŒ…å«è™šå‡½æ•°çš„è±å½¢ç»§æ‰¿ç±»çš„å†…å­˜æ¨¡å‹æµ‹è¯•!" << endl;
 
 	vchild b;
 	cout.setf(ios::left);
 	COUT_SIZE(vchild, b);
 	COUT_ADDR(vchild, b);
-	COUT_VAL_ADDR(vchild, b, vfather::vgrand::_vgrand_x);
-	COUT_VAL_ADDR(vchild, b, vfather::vgrand::_vgrand_ch);
+	COUT_VAL_ADDR(vchild, b, vfather::_vgrand_x);
+	COUT_VAL_ADDR(vchild, b, vfather::_vgrand_ch);
 	COUT_VAL_ADDR(vchild, b, vfather::_vfather_ch);
 
-	COUT_VAL_ADDR(vchild, b, vmother::vgrand::_vgrand_x);
-	COUT_VAL_ADDR(vchild, b, vmother::vgrand::_vgrand_ch);
+	COUT_VAL_ADDR(vchild, b, vmother::_vgrand_x);
+	COUT_VAL_ADDR(vchild, b, vmother::_vgrand_ch);
 	COUT_VAL_ADDR(vchild, b, vmother::_vmother_ch);
 
 	COUT_VAL_ADDR(vchild, b, _vchild_ch);
 
-	cout << "\nµÚÒ»¸öĞéº¯Êı±í:" << endl;
-	long long offset = 16;
-	int* pvptr = (int*)((long long)(&b) + offset);		//µÚ¶ş¸öĞéº¯Êı±íµÄ¾ø¶ÔµØÖ·
+	cout << "\nç¬¬ä¸€ä¸ªè™šå‡½æ•°è¡¨:" << endl;
+	long long offset = 0;
+	int* pvptr = (int*)((long long)(&b) + offset);		//ç¬¬äºŒä¸ªè™šå‡½æ•°è¡¨çš„ç»å¯¹åœ°å€
+	COUT_VPTR(vchild, 1, pvptr);
 	void **vptr = GET_VIRTUAL_TABLE(*pvptr);
-	cout << "¶ÔÏóvchildµÄĞéº¯Êı±íµØÖ·:" << setw(50) << "vchild::vptr" << vptr << endl;
 	int vir_cnt = 7;
 	for (int i = 0; i < vir_cnt; i++)
 	{
-		cout << "µÚ" << i << "¸öĞéº¯ÊıÖ´ĞĞ½á¹û:\t\t\t\t";
+		cout << "ç¬¬" << i << "ä¸ªè™šå‡½æ•°æ‰§è¡Œç»“æœ:\t\t\t\t";
 		virtual_func func = (virtual_func)vptr[i];
 		func();
 		COUT_VIRTUAL_FUNC_ADDR(vchild, i, func);
 	}
 
 
-	cout << "\nµÚ¶ş¸öĞéº¯Êı±í:" << endl;
-	offset = 40;
-	pvptr = (int*)((long long)(&b) + offset);		//µÚ¶ş¸öĞéº¯Êı±íµÄ¾ø¶ÔµØÖ·
+	cout << "\nç¬¬äºŒä¸ªè™šå‡½æ•°è¡¨:" << endl;
+	offset = 16;
+	pvptr = (int*)((long long)(&b) + offset);		//ç¬¬äºŒä¸ªè™šå‡½æ•°è¡¨çš„ç»å¯¹åœ°å€
+	COUT_VPTR(vchild, 1, pvptr);
 	vptr = GET_VIRTUAL_TABLE(*pvptr);
-	cout << "¶ÔÏóvchildµÄĞéº¯Êı±íµØÖ·:" << setw(50) << "vchild::vptr" << vptr << endl;
 	vir_cnt = 7;
 	for (int i = 0; i < vir_cnt; i++)
 	{
-		cout << "µÚ" << i << "¸öĞéº¯ÊıÖ´ĞĞ½á¹û:\t\t\t\t";
+		cout << "ç¬¬" << i << "ä¸ªè™šå‡½æ•°æ‰§è¡Œç»“æœ:\t\t\t\t";
 		virtual_func func = (virtual_func)vptr[i];
 		func();
 		COUT_VIRTUAL_FUNC_ADDR(vchild, i, func);
 	}
-	cout << "°üº¬Ğéº¯ÊıµÄÁâĞÎ¼Ì³ĞÀàµÄÄÚ´æÄ£ĞÍ²âÊÔ½áÊø!" << endl;
+	cout << "åŒ…å«è™šå‡½æ•°çš„è±å½¢ç»§æ‰¿ç±»çš„å†…å­˜æ¨¡å‹æµ‹è¯•ç»“æŸ!" << endl;
 }
 
 void test_vdimond_vinherit()
 {
-	cout << "¿ªÊ¼°üº¬Ğéº¯ÊıµÄÁâĞÎ¼Ì³ĞÀàµÄÄÚ´æÄ£ĞÍ²âÊÔ!" << endl;
+		cout << "å¼€å§‹åŒ…å«è™šå‡½æ•°çš„è±å½¢è™šç»§æ‰¿ç±»çš„å†…å­˜æ¨¡å‹æµ‹è¯•!" << endl;
 
 	vchild b;
 	cout.setf(ios::left);
 	COUT_SIZE(vchild, b);
 	COUT_ADDR(vchild, b);
-	COUT_VAL_ADDR(vchild, b, vfather::vgrand::_vgrand_x);
-	COUT_VAL_ADDR(vchild, b, vfather::vgrand::_vgrand_ch);
+	COUT_VAL_ADDR(vchild, b, vfather::_vgrand_x);
+	COUT_VAL_ADDR(vchild, b, vfather::_vgrand_ch);
 	COUT_VAL_ADDR(vchild, b, vfather::_vfather_ch);
 
-	COUT_VAL_ADDR(vchild, b, vmother::vgrand::_vgrand_x);
-	COUT_VAL_ADDR(vchild, b, vmother::vgrand::_vgrand_ch);
+	COUT_VAL_ADDR(vchild, b, vmother::_vgrand_x);
+	COUT_VAL_ADDR(vchild, b, vmother::_vgrand_ch);
 	COUT_VAL_ADDR(vchild, b, vmother::_vmother_ch);
 
 	COUT_VAL_ADDR(vchild, b, _vchild_ch);
 
-	cout << "\nµÚÒ»¸öĞéº¯Êı±í:" << endl;
+	cout << "\nç¬¬ä¸€ä¸ªè™šå‡½æ•°è¡¨:" << endl;
 	long long offset = 0;
-	int* pvptr = (int*)((long long)(&b) + offset);		//µÚ¶ş¸öĞéº¯Êı±íµÄ¾ø¶ÔµØÖ·
+	int* pvptr = (int*)((long long)(&b) + offset);		//ç¬¬äºŒä¸ªè™šå‡½æ•°è¡¨çš„ç»å¯¹åœ°å€
+	COUT_VPTR(vchild, 1, pvptr);
+
 	void **vptr = GET_VIRTUAL_TABLE(*pvptr);
-	cout << "¶ÔÏóvchildµÄĞéº¯Êı±íµØÖ·:" << setw(50) << "vchild::vptr" << vptr << endl;
-	int vir_cnt = 7;
+	int vir_cnt = 6;
 	for (int i = 0; i < vir_cnt; i++)
 	{
-		cout << "µÚ" << i << "¸öĞéº¯ÊıÖ´ĞĞ½á¹û:\t\t\t\t";
+		cout << "ç¬¬" << i << "ä¸ªè™šå‡½æ•°æ‰§è¡Œç»“æœ:\t\t\t\t";
 		virtual_func func = (virtual_func)vptr[i];
 		func();
 		COUT_VIRTUAL_FUNC_ADDR(vchild, i, func);
 	}
 
 
-	cout << "\nµÚ¶ş¸öĞéº¯Êı±í:" << endl;
-	offset = 24;
-	pvptr = (int*)((long long)(&b) + offset);		//µÚ¶ş¸öĞéº¯Êı±íµÄ¾ø¶ÔµØÖ·
+	cout << "\nç¬¬äºŒä¸ªè™šå‡½æ•°è¡¨:" << endl;
+	offset = 16;
+	pvptr = (int*)((long long)(&b) + offset);		//ç¬¬äºŒä¸ªè™šå‡½æ•°è¡¨çš„ç»å¯¹åœ°å€
+	COUT_VPTR(vchild, 2, pvptr);
 	vptr = GET_VIRTUAL_TABLE(*pvptr);
-	cout << "¶ÔÏóvchildµÄĞéº¯Êı±íµØÖ·:" << setw(50) << "vchild::vptr" << vptr << endl;
-	vir_cnt = 7;
+	vir_cnt =4;
 	for (int i = 0; i < vir_cnt; i++)
 	{
-		cout << "µÚ" << i << "¸öĞéº¯ÊıÖ´ĞĞ½á¹û:\t\t\t\t";
+		cout << "ç¬¬" << i << "ä¸ªè™šå‡½æ•°æ‰§è¡Œç»“æœ:\t\t\t\t";
 		virtual_func func = (virtual_func)vptr[i];
 		func();
 		COUT_VIRTUAL_FUNC_ADDR(vchild, i, func);
 	}
-	cout << "°üº¬Ğéº¯ÊıµÄÁâĞÎ¼Ì³ĞÀàµÄÄÚ´æÄ£ĞÍ²âÊÔ½áÊø!" << endl;
+
+	cout << "\nç¬¬ä¸‰ä¸ªè™šå‡½æ•°è¡¨:" << endl;
+	offset = 32;
+	pvptr = (int*)((long long)(&b) + offset);		//ç¬¬äºŒä¸ªè™šå‡½æ•°è¡¨çš„ç»å¯¹åœ°å€
+	COUT_VPTR(vchild, 3, pvptr);
+	vptr = GET_VIRTUAL_TABLE(*pvptr);
+	vir_cnt = 5;
+	for (int i = 0; i < vir_cnt; i++)
+	{
+		cout << "ç¬¬" << i << "ä¸ªè™šå‡½æ•°æ‰§è¡Œç»“æœ:\t\t\t\t";
+		virtual_func func = (virtual_func)vptr[i];
+		func();
+		COUT_VIRTUAL_FUNC_ADDR(vchild, i, func);
+	}
+	cout << "åŒ…å«è™šå‡½æ•°çš„è±å½¢è™šç»§æ‰¿ç±»çš„å†…å­˜æ¨¡å‹æµ‹è¯•ç»“æŸ!" << endl;
 }

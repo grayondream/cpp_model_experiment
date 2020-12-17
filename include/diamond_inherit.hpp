@@ -7,19 +7,19 @@ public:
 	char _grand_ch;
 };
 
-class father : public grand
+class father : virtual public grand
 {
 public:
 	char _father_ch;
 };
 
-class mother : public grand
+class mother : virtual public grand
 {
 public:
 	char _mother_ch;
 };
 
-class child : virtual public mother, virtual public father
+class child :  public mother,  public father
 {
 public:
 	char _child_ch;
